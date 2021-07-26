@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo "Hello ${params.PERSON}"
                 echo "terraform apply"
-                sh "terraform apply --auto-approve"
+                sh "terraform apply -auto-approve"
                 
             }
         }
