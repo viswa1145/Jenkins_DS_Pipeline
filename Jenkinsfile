@@ -2,37 +2,30 @@ pipeline {
     agent any 
     parameters {
         string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-
-        text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
-
-        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
-
-        choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
-
-        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
     }
     options { timestamps () }
     stages {
-        stage('Example hello') {
+        stage('terraform init') {
             steps {
-                echo 'Hello, Maven'
-                echo "$PERSON"
-                echo "$CHOICE"
-                echo "$BIOGRAPHY"
+                echo " terraform init"
+                  sh "terraform init"
                 
             }
         }
-        stage('Example') {
+        stage('terraform plan ') {
             steps {
                 echo "Hello ${params.PERSON}"
-
-                echo "Biography: ${params.BIOGRAPHY}"
-
-                echo "Toggle: ${params.TOGGLE}"
-
-                echo "Choice: ${params.CHOICE}"
-
-                echo "Password: ${params.PASSWORD}"
+                echo "terraform plan"
+                sh "terraform plan"
+                
+            }
+        }
+        stage('terraform apply ') {
+            steps {
+                echo "Hello ${params.PERSON}"
+                echo "terraform apply"
+                sh "terraform apply --auto-approve"
+                
             }
         }
     }
